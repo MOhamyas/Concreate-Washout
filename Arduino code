@@ -1,0 +1,110 @@
+#define enA 8
+#define enB 9
+#define trig 2
+#define echo 3
+#define LeftDC11 4
+#define LeftDC12 5
+#define RightDC21 6
+#define RightDC22 7
+#define pump 3
+
+void setup() {
+  // put your setup code here, to run once:
+pinMode (enA, OUTPUT);
+pinMode (enB, OUTPUT);
+pinMode(13, OUTPUT);
+pinMode(LeftDC11 , OUTPUT);
+pinMode(LeftDC12 , OUTPUT);
+pinMode(RightDC21 , OUTPUT);
+pinMode(RightDC22 , OUTPUT);
+pinMode(pump , OUTPUT);
+  Serial.begin(9600);
+}
+void front (){
+  digitalWrite(LeftDC11, HIGH);
+  digitalWrite(LeftDC12, LOW);
+  digitalWrite (enA, HIGH);
+digitalWrite (enB, HIGH); 
+  digitalWrite(RightDC21, HIGH);
+  digitalWrite(RightDC22, LOW);
+  Serial.println("Front");
+}
+
+void back (){
+  digitalWrite(LeftDC11, LOW);
+  digitalWrite(LeftDC12, HIGH);
+  digitalWrite (enA, HIGH);
+digitalWrite (enB, HIGH); 
+  digitalWrite(RightDC21, LOW);
+  digitalWrite(RightDC22, HIGH);
+  Serial.println("Back");
+}
+void left (){
+  digitalWrite(LeftDC11, LOW);
+  digitalWrite(LeftDC12, LOW);
+  digitalWrite(RightDC21, HIGH);
+  digitalWrite(RightDC22, LOW);
+  digitalWrite (enA, HIGH);
+digitalWrite (enB, HIGH); 
+  Serial.println("Left");
+}
+void right (){
+  digitalWrite(LeftDC11, HIGH);
+  digitalWrite(LeftDC12, LOW);
+  digitalWrite(RightDC21, LOW);
+  digitalWrite(RightDC22, LOW);
+  digitalWrite (enA, HIGH);
+digitalWrite (enB, HIGH); 
+  Serial.println("Right");
+}
+
+void Stop(){
+  digitalWrite(LeftDC11, LOW);
+  digitalWrite(LeftDC12, LOW);
+  digitalWrite(RightDC21, LOW);
+  digitalWrite(RightDC22, LOW);
+  digitalWrite (enA, LOW);
+digitalWrite (enB, LOW);
+  Serial.println("Stop");
+}
+
+void pumpOn (){
+  digitalWrite(pump, HIGH);
+  Serial.println("Pump On");
+}
+
+void pumpOff (){
+  digitalWrite(pump, LOW);
+  Serial.println("Pump Off");
+}
+
+
+void loop() {
+  // put your main code here, to run repeatedly:
+digitalWrite (8, HIGH);
+digitalWrite (9, HIGH); 
+{
+  while(Serial.available()==0);
+  char c = Serial.read();
+  if (c == 'f'){
+    front();
+  }
+  if (c == 'b')
+  {back();}
+  if (c == 'l'){
+    left();}
+  
+  if (c == 'r'){
+    right();
+  }
+  if (c == 's'){
+    Stop();
+  }
+  if (c == '1'){
+    pumpOn();
+  }
+  if (c == '0'){
+    pumpOff();
+  }
+ }
+}
